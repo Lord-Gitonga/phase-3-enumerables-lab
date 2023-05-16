@@ -9,6 +9,15 @@ describe '#get_names' do
 
 end
 
+def get_names (spicy_foods)
+  names = []
+  spicy_foods.each do |food|
+    names << food[:name]
+  end
+  return names
+end
+
+
 describe '#spiciest_foods' do
   
   it 'return an array of hashes where the heat level of the food is greater than 5' do
@@ -20,6 +29,17 @@ describe '#spiciest_foods' do
 
 end
 
+def spiciest_foods spicy_foods
+  spiciest = []
+
+  spicy_foods.each do |food|
+    if food[:heat_level] >5
+      spiciest << food
+    end
+  end
+  return spiciest
+end
+
 describe '#print_spicy_foods' do
   
   it 'outputs the spicy foods to the terminal in the specified format' do
@@ -29,6 +49,15 @@ describe '#print_spicy_foods' do
   
 end
 
+def print_spicy_foods spicy_foods
+  spicy_foods.each do |food|
+    heat_level_emoji = "🌶" * food[:heat_level]
+
+    puts "#{food[:name]} (#{food[:cuisine]}) | Heat Level: #{heat_level_emoji}"
+  end
+end
+
+
 describe '#get_spicy_food_by_cuisine' do
   
   it 'returns a single hash for the spicy food whose cuisine matches the cuisine being passed to the method' do
@@ -36,6 +65,14 @@ describe '#get_spicy_food_by_cuisine' do
     expect(get_spicy_food_by_cuisine(spicy_foods, "Thai")).to eq({ name: 'Green Curry', cuisine: 'Thai', heat_level: 9 })
   end
 
+end
+
+def get_spicy_food_by_cuisine (spicy_foods,cuisine)
+  spicy_foods.each do |food|
+    if food[:cuisine] == cuisine
+      return food
+    end
+  end
 end
 
 describe '#sort_by_heat' do
@@ -51,6 +88,11 @@ describe '#sort_by_heat' do
 
 end
 
+def sort_by_heat spicy_foods 
+  sorted_foods = spicy_foods.sort_by {|food| food[:heat_level]} 
+    return sorted_foods
+end
+
 describe '#print_spiciest_foods' do
   
   it 'outputs ONLY the spicy foods that have a heat level greater than 5 to the terminal in the specified format' do
@@ -58,6 +100,16 @@ describe '#print_spiciest_foods' do
     expect { print_spiciest_foods(spicy_foods) }.to output(output_str).to_stdout
   end
   
+end
+
+
+def print_spiciest_foods spicy_foods
+  spiciest_food = spicy_foods.each do |food| 
+    if food[:heat_level] > 5 
+     heat_level_emoji = "🌶" * food[:heat_level]
+     puts "#{food[:name]} (#{food[:origin]}) | Heat Level : #{heat_level_emoji}"
+    end
+  end
 end
 
 describe '#average_heat_level' do
